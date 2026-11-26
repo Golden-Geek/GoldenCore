@@ -31,7 +31,7 @@ fn mapping_and_extracting_a_created_owner_preserves_it_and_the_original_os_error
         Some(5)
     );
     let (cause, owner) = error.into_parts();
-    assert_eq!(cause.kind(), io::ErrorKind::PermissionDenied);
+    assert_eq!(cause.raw_os_error(), Some(5));
     assert_eq!(drops.load(Ordering::SeqCst), 0);
     drop(owner);
     assert_eq!(drops.load(Ordering::SeqCst), 1);
