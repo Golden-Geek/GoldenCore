@@ -2,6 +2,9 @@ use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
 
+#[cfg(all(feature = "analysis", feature = "playback"))]
+pub(crate) const REALTIME_PRIORITY_DENIED: &str = "audio_render_realtime_priority_denied";
+
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
 #[non_exhaustive]

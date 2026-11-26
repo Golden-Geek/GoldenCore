@@ -378,7 +378,7 @@ fn run_control_worker(mut command_receiver: Consumer<CommandEnvelope>, worker: C
             AudioEvent::Diagnostic(
                 DiagnosticEvent::new(
                     DiagnosticSeverity::Warning,
-                    "audio_render_realtime_priority_denied",
+                    crate::diagnostics::REALTIME_PRIORITY_DENIED,
                     "audio rendering will continue without realtime thread priority",
                 )
                 .with_context("thread", "golden-audio-render")

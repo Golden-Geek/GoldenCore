@@ -12,8 +12,8 @@ use super::{ReferenceWorkload, ReferenceWorkloadSpec, configuration};
 use crate::{
     AudioBackend, AudioBackendState, AudioCommand, AudioDeviceReadiness, AudioDeviceSelection, AudioDirection,
     AudioEngineBuilder, AudioError, AudioErrorCategory, AudioEvent, AudioEventReceiver, AudioRecoveryPolicy,
-    AudioSampleFormat, BackendPolicy, ConfigGeneration, DirectionConfiguration, GainDb, PlayFileRequest, PlaybackId,
-    RenderRuntimeObservation, SampleRate,
+    AudioSampleFormat, BackendPolicy, ConfigGeneration, DirectionConfiguration, GainDb, NullBackend, PlayFileRequest,
+    PlaybackId, RenderRuntimeObservation, SampleRate,
 };
 
 const CONTRACT: &str = "golden-audio-managed-device-soak.v1";
@@ -155,6 +155,7 @@ struct EventCounters {
     playback_finishes: u64,
     playback_failures: u64,
     runtime_warnings: u64,
+    realtime_priority_warnings: u64,
     runtime_warning_messages: Vec<String>,
     failures: Vec<String>,
 }
@@ -390,6 +391,13 @@ pub fn run_managed_device_soak_with_progress(
         .diagnostics
         .stale_frames
         .saturating_sub(baseline.analysis.diagnostics.stale_frames);
+    // The Null backend qualifies signal and recovery with a software clock. Report denied
+    // scheduling priority there, while requiring warning-free operation for real devices.
+    let blocking_runtime_warnings = if backend_id == NullBackend::backend_id() {
+        counters.runtime_warnings - counters.realtime_priority_warnings
+    } else {
+        counters.runtime_warnings
+    };
     let mut failures = counters.failures;
     qualify(
         &options,
@@ -403,7 +411,7 @@ pub fn run_managed_device_soak_with_progress(
         stale_analysis_frames,
         counters.playback_starts,
         counters.playback_failures,
-        counters.runtime_warnings,
+        blocking_runtime_warnings,
         &mut failures,
     );
     engine.shutdown()?;
@@ -671,6 +679,9 @@ fn drain_events(events: &mut AudioEventReceiver, counters: &mut EventCounters) -
             }
             AudioEvent::Diagnostic(diagnostic) if diagnostic.severity == crate::DiagnosticSeverity::Warning => {
                 counters.runtime_warnings = counters.runtime_warnings.saturating_add(1);
+                if diagnostic.code == crate::diagnostics::REALTIME_PRIORITY_DENIED {
+                    counters.realtime_priority_warnings = counters.realtime_priority_warnings.saturating_add(1);
+                }
                 counters.runtime_warning_messages.push(diagnostic.message);
             }
             _ => {}

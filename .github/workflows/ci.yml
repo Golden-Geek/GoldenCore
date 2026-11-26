@@ -104,7 +104,7 @@ jobs:
       - name: Verify backend-neutral audio core
         run: cargo test --locked -p golden_audio --no-default-features
       - name: Compile and test platform audio hosts
-        run: cargo test --locked -p golden_audio --features "${{ matrix.features }}" -- --test-threads=1
+        run: cargo test --locked -p golden_audio --features "${{ matrix.features }}"
       - name: Probe hosts without opening streams
         run: cargo run --locked -p golden_audio --example backend_probe --features "${{ matrix.features }}"
       - name: Verify standalone Golden Audio distribution
