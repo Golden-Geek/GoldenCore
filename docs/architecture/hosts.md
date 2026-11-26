@@ -887,7 +887,7 @@ The October audit found blocking module stop/join paths, unbounded/unit-weight p
 unrestricted engine external-edit drains, and lifecycle expansion loops. The arbitrary engine
 channel has since been removed in favor of bounded worker notifications; the remaining module
 and lifecycle gaps are still open. The single
-[implementation plan](../plan/Chataigne2_Codex_Implementation_Plan.md) owns those P02/P03 repairs;
+[implementation plan](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/plan/Chataigne2_Codex_Implementation_Plan.md) owns those P02/P03 repairs;
 do not infer that all module I/O is already bounded from the generic channel API.
 
 The HTTP/WebSocket UI host now validates Host and browser Origin before API dispatch or upgrade,
@@ -895,5 +895,5 @@ and uses exact-origin CORS. The [transport request boundary](ui-transport-securi
 configured development origins, LAN authorities, HTTP parsing, scoped sessions and shared client
 renewal. CSP and the complete supported-surface matrix remain P05 work. Loopback defaults and
 Tauri capabilities are separate from request admission. The
-[security reference](../reference/tauri-security.md) and [current status](../progress/implementation-status.md)
+[security reference](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/reference/tauri-security.md) and [current status](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/implementation-status.md)
 record the boundary and evidence.

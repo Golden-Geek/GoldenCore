@@ -83,7 +83,7 @@ on its own leaves the editor and unsaved work intact. The workbench still owns s
 its confirmed `window_destroy` command routes through retirement. App capabilities omit direct
 Tauri destroy permission. Headless/default launches create no presentation lifecycle. The current
 extension covers the main editor underlay; output-window policy and full physical presentation
-qualification retain their M03/M05 owners. See the [MapGyver evidence](../progress/mapgyver-m02-shell.md).
+qualification retain their M03/M05 owners. See the [MapGyver evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/mapgyver-m02-shell.md).
 
 `NativePresentation::with_control` optionally attaches metadata control to that retained window.
 The shared `native_presentation_control` command admits at most eight pending UI callbacks and

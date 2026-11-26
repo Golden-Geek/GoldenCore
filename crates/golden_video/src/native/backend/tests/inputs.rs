@@ -69,11 +69,15 @@ pub(super) struct Producer {
 
 impl Producer {
     pub(super) fn new(adapter: usize, name: &str, registry: &Mutex<Vec<Weak<Mutex<Child>>>>) -> Self {
-        let executable =
-            std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../target/debug/native_source_fixture.exe");
+        let executable = std::env::var_os("GOLDEN_SPOUT_FIXTURE")
+            .map(std::path::PathBuf::from)
+            .unwrap_or_else(|| {
+                std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join("../../target/debug/examples/native_source_fixture.exe")
+            });
         assert!(
             executable.exists(),
-            "build native_source_fixture before this explicit hardware test"
+            "build native_source_fixture or set GOLDEN_SPOUT_FIXTURE before this explicit hardware test"
         );
         let mut child = Command::new(executable)
             .creation_flags(CREATE_NO_WINDOW.0)

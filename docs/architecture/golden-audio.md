@@ -190,12 +190,12 @@ the resampler and flushes the old clock domain on the control thread; it never c
 promotion, and null fallback must not be read as a production integration claim. A single
 production authority, explicit epoch/presentation-time conversion, and prepared scheduled
 activation are readiness work in P14 of the
-[implementation plan](../plan/Chataigne2_Codex_Implementation_Plan.md).
+[implementation plan](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/plan/Chataigne2_Codex_Implementation_Plan.md).
 
 The intended contract is prepare/prime, switch at an engine block boundary, and retire old stream
 ownership away from realtime work without resetting the sample counter or replaying effects.
 Current implementation/qualification gaps are recorded in the
-[one status ledger](../progress/implementation-status.md).
+[one status ledger](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/implementation-status.md).
 
 ## Playback boundary
 

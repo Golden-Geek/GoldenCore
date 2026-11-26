@@ -102,11 +102,11 @@ jobs:
         with:
           key: golden-audio-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'tools/bootstrap/toolchain.json') }}
       - name: Verify backend-neutral audio core
-        run: cargo test -p golden_audio --no-default-features
+        run: cargo test --locked -p golden_audio --no-default-features
       - name: Compile and test platform audio hosts
-        run: cargo test -p golden_audio --features "${{ matrix.features }}"
+        run: cargo test --locked -p golden_audio --features "${{ matrix.features }}"
       - name: Probe hosts without opening streams
-        run: cargo run -p golden_audio --example backend_probe --features "${{ matrix.features }}"
+        run: cargo run --locked -p golden_audio --example backend_probe --features "${{ matrix.features }}"
       - name: Verify standalone Golden Audio distribution
         if: runner.os == 'Windows'
         run: >-
@@ -121,172 +121,64 @@ jobs:
           path: target/qualification/external-audio-consumer.json
           if-no-files-found: warn
 
-  golden_engine_tests:
-    name: golden_engine tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Activate repository-pinned Rust toolchain
-        shell: bash
-        run: sh ./tools/bootstrap/install-rust-toolchain.sh
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: engine-tests-${{ hashFiles('Cargo.lock', 'tools/bootstrap/toolchain.json') }}
-      - name: Run tests (single-threaded to avoid flaky logger test)
-        run: cargo test -p golden_engine -- --test-threads=1
-
-  ui_quality:
-    name: UI quality
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: package-lock.json
-      - name: Install UI deps
-        run: npm ci
-      - name: UI lint
-        working-directory: apps/chataigne/ui
-        run: npm run lint
-      - name: UI check
-        working-directory: apps/chataigne/ui
-        run: npm run check
-
-  buildui:
-    name: Build UI artifact
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: package-lock.json
-      - name: Install UI deps
-        run: npm ci
-      - name: UI build
-        working-directory: apps/chataigne/ui
-        run: npm run build
-      - name: Upload UI build
-        uses: actions/upload-artifact@v7
-        with:
-          name: ui-build
-          path: apps/chataigne/ui/build
-          if-no-files-found: error
-
-  build:
-    name: Build (${{ matrix.label }})
-    needs: buildui
-    runs-on: ${{ matrix.runs_on }}
+  golden_rust:
+    name: Golden Rust (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - id: win-x64
-            label: Win x64
-            runs_on: windows-latest
-            target: x86_64-pc-windows-msvc
-          - id: win-arm64
-            label: Win arm64
-            runs_on: windows-11-arm
-            target: aarch64-pc-windows-msvc
-          - id: macos-arm64
-            label: macOS silicon
-            runs_on: macos-15
-            target: aarch64-apple-darwin
-          - id: macos-x64
-            label: macOS intel
-            runs_on: macos-15-intel
-            target: x86_64-apple-darwin
-          - id: linux-x64
-            label: Linux x64
-            runs_on: ubuntu-24.04
-            target: x86_64-unknown-linux-gnu
-            install_linux_deps: true
-          - id: rpi-armhf
-            label: RPI 32-bit (Linux armhf)
-            runs_on: ubuntu-24.04
-            target: armv7-unknown-linux-gnueabihf
-          - id: rpi-aarch64
-            label: RPI 64-bit (Linux aarch64)
-            runs_on: ubuntu-24.04-arm
-            target: aarch64-unknown-linux-gnu
-            install_linux_deps: true
+          - os: windows-latest
+            features: golden_video/d3d11,golden_video/ndi,golden_video/browser-preview
+          - os: macos-15
+            features: golden_video/wgpu-backend,golden_video/browser-preview
+          - os: ubuntu-24.04
+            features: golden_video/wgpu-backend,golden_video/browser-preview
     steps:
       - uses: actions/checkout@v6
-      - name: Clear UI build directory
-        shell: pwsh
-        run: |
-          if (Test-Path 'apps/chataigne/ui/build') {
-            Remove-Item 'apps/chataigne/ui/build' -Recurse -Force
-          }
-      - name: Download UI build
-        uses: actions/download-artifact@v8
-        with:
-          name: ui-build
-          path: apps/chataigne/ui/build
-      - name: Install target for repository-pinned Rust toolchain (Windows)
-        if: ${{ matrix.id != 'rpi-armhf' && runner.os == 'Windows' }}
-        shell: pwsh
-        run: |
-          ./tools/bootstrap/install-rust-toolchain.ps1
-          rustup target add ${{ matrix.target }}
-      - name: Install target for repository-pinned Rust toolchain (macOS/Linux)
-        if: ${{ runner.os != 'Windows' }}
-        shell: bash
-        run: |
-          sh ./tools/bootstrap/install-rust-toolchain.sh
-          rustup target add ${{ matrix.target }}
-      - name: Cache default Windows ASIO SDK
-        if: runner.os == 'Windows'
-        uses: actions/cache@v5
-        with:
-          path: ${{ runner.temp }}/chataigne-tool-cache/asio-sdk
-          key: asio-sdk-${{ hashFiles('tools/bootstrap/toolchain.json') }}
-      - name: Configure default Windows ASIO
+      - name: Activate pinned Rust on Windows
         if: runner.os == 'Windows'
         shell: pwsh
-        run: |
-          $cache = Join-Path $env:RUNNER_TEMP "chataigne-tool-cache/asio-sdk"
-          $asio = ./tools/asio.ps1 -CacheRoot $cache -SetupOnly -PassThru
-          "CPAL_ASIO_DIR=$($asio.sdk_path)" >> $env:GITHUB_ENV
-          "LIBCLANG_PATH=$($asio.libclang_path)" >> $env:GITHUB_ENV
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: build-${{ matrix.target }}-${{ hashFiles('Cargo.lock', 'tools/bootstrap/toolchain.json') }}
-          workspaces: |
-            . -> target
-      - name: Install Linux desktop deps
-        if: ${{ matrix.install_linux_deps }}
+        run: ./tools/bootstrap/install-rust-toolchain.ps1
+      - name: Activate pinned Rust on macOS and Linux
+        if: runner.os != 'Windows'
         shell: bash
+        run: sh ./tools/bootstrap/install-rust-toolchain.sh
+      - name: Install Linux prerequisites
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y $LINUX_BUILD_PACKAGES
-      - name: Install Linux ARMHF cross-compile deps
-        if: ${{ matrix.id == 'rpi-armhf' }}
-        shell: bash
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --locked --workspace --all-targets --features "${{ matrix.features }}" -- -D warnings
+      - run: cargo test --locked --workspace --features "${{ matrix.features }}" -- --test-threads=1
+      - run: git diff --exit-code
+
+  golden_ui:
+    name: Golden UI and contracts
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: sh ./tools/bootstrap/install-rust-toolchain.sh
+      - uses: Swatinem/rust-cache@v2
+      - name: Install ALSA headers for audio codegen
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang gcc-arm-linux-gnueabihf libclang-dev llvm-dev
-          echo "LIBCLANG_PATH=$(llvm-config --libdir)" >> "$GITHUB_ENV"
-      - name: App build
-        if: ${{ matrix.id != 'rpi-armhf' }}
-        env:
-          GC_UI_ASSUME_BUILT: 1
-        run: cargo build --target ${{ matrix.target }}
-      - name: Verify ordinary desktop audio hosts
-        if: ${{ matrix.id != 'rpi-armhf' }}
-        env:
-          GC_UI_ASSUME_BUILT: 1
-        run: cargo test --locked -p Chataigne2 --test default_audio_hosts --target ${{ matrix.target }}
-      - name: Portable headless compatibility check (Linux armhf)
-        if: ${{ matrix.id == 'rpi-armhf' }}
-        shell: bash
+          sudo apt-get install -y libasound2-dev
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run codegen
+      - name: Verify generated output
         run: |
-          python3 tools/product-gate/compatibility_gate.py \
-            --platform linux-armhf \
-            --target ${{ matrix.target }} \
-            --scope headless-core \
-            --report target/product-gate-compat/linux-armhf/product-gate-report.json
+          git diff --exit-code -- packages
+          test -z "$(git ls-files --others --exclude-standard -- packages)"
+      - run: npx --workspace golden_ui playwright-core install --with-deps chromium
+      - run: npm run test:browser:dashboard --workspace golden_ui -- --dense-only
+      - run: npm run test:browser --workspace golden_video_ui
+      - run: git diff --exit-code

@@ -8,6 +8,7 @@ export async function verifyContinuity(browser, baseUrl) {
 	try {
 		await page.addInitScript(() => {
 			window.isTauri = true;
+			window.__GOLDEN_NATIVE_PRESENTATION__ = true;
 			window.__continuityInstalled = false;
 			window.__continuityRequests = [];
 			let views = [];

@@ -116,8 +116,8 @@ forward that port through `VITE_GC_UI_BACKEND_PORT`; separately launched Vite mu
 setting when the backend uses a non-default port. Bundled HTML's static meta policy and the HTTP
 header are enforced together. The header supplies `frame-ancestors`, which meta CSP cannot enforce.
 
-The [Tauri security reference](../reference/tauri-security.md) records the compiled-asset policy
+The [Tauri security reference](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/reference/tauri-security.md) records the compiled-asset policy
 and native command permissions. Qualification results and limits live in the
-[current status](../progress/implementation-status.md). Reproduce the network/DOM surface check
+[current status](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/implementation-status.md). Reproduce the network/DOM surface check
 with `node tools/qualification/transport-security.mjs BINARY HEADLESS_BROWSER OUTPUT_JSON`; it owns
 an isolated preferences directory, temporary listener ports and a separate headless browser.

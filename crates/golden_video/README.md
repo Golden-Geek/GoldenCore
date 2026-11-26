@@ -726,8 +726,13 @@ with `cargo run --locked -p MapGyver --features native-video-smoke --bin native_
 and reports the observed adapter/LUID. Its API-acceptance and retirement checks do not establish
 scanout, delivery, physical/DPI correctness or Q01/Q02 budgets.
 
-For cross-process input verification, first build `native_source_fixture` with the same MapGyver
-feature, then run `cargo test --locked -p golden_video --features d3d11 -- --ignored --nocapture --test-threads=1`.
+For cross-process input verification, first run
+`cargo build --locked -p golden_video --features d3d11 --example native_source_fixture`,
+then run `cargo test --locked -p golden_video --features d3d11 -- --ignored --nocapture --test-threads=1`.
+Set `GOLDEN_SPOUT_FIXTURE` to the executable path when using a different target directory or profile.
 The owned fixture accepts only finite test commands and uses GPU-generated colors; its control
 pipe carries no video frames. The tests cover preparation/cancellation, bridge pressure, static
 frame reuse, disconnect/reconnect, bounded resize and oversized-source rejection.
+
+For the external NDI tests, consult `tests/fixtures/ndi_sender.py --help` for the runtime and
+readiness arguments. Set `GOLDEN_NDI_TEST_SOURCE` to the sender name from its ready file.

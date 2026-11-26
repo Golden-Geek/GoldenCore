@@ -51,8 +51,8 @@ Keyboard endpoint selection also cancels on topology changes; position, activity
 preserve it. Primitive identity fields are derived separately before constructing a scope object so
 ordinary document publications cannot trigger a false reset.
 
-The [shared delivery evidence](../progress/p11-graph-keyboard.md) covers the initial component path.
-Logical discovery and overview focus pass the [five-tier qualification](../progress/p11-graph-discovery.md).
+The [shared delivery evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-graph-keyboard.md) covers the initial component path.
+Logical discovery and overview focus pass the [five-tier qualification](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-graph-discovery.md).
 Collapsed/compound body sockets, rejection lifetimes and five-tier movement/connection timings pass
-the [socket qualification](../progress/p11-graph-sockets.md). Complete app-consumer, authoritative
+the [socket qualification](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-graph-sockets.md). Complete app-consumer, authoritative
 receipt/rejection/reload qualification remains before graph closure. Native input/usability remains P17.

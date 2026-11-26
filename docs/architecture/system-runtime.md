@@ -8,7 +8,7 @@ public worker, retained-payload, lifetime and notification contracts. OS policy 
 App Control has its own watched-application/folder model under the adjacent `app_control/` tree.
 Its native runtime owns process/window operations and recursive folder observations. The module
 owns authored watch configuration, detached value trees, command catalogs and guarded publication.
-The [closure audit](../progress/p03-closure-audit.md) records local C06 qualification; device,
+The [closure audit](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p03-closure-audit.md) records local C06 qualification; device,
 platform and product-scale evidence retain their later owners.
 
 ## Capture and dispatch
@@ -78,7 +78,7 @@ does not erase a known physical outcome.
 
 Tests use controlled providers. Test builds disable the native host-control executor, so an
 incorrect fixture cannot perform shutdown, reboot, logout or Wake-on-LAN. Physical control and
-platform qualification remain separate; the [execution ledger](../progress/implementation-status.md)
+platform qualification remain separate; the [execution ledger](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/implementation-status.md)
 owns acceptance evidence and the remaining plan work.
 
 ## App Control

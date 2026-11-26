@@ -1,14 +1,5 @@
 [workspace]
 members = [
-    "apps/chataigne",
-    "apps/chataigne/systems/alchemist",
-    "apps/chataigne/systems/alchemist/condition",
-    "apps/chataigne/systems/alchemist/processor",
-    "apps/chataigne/systems/state_machine/model",
-    "apps/chataigne/systems/state_machine/runtime",
-    "apps/chataigne/systems/sound_card_protocol",
-    "apps/chataigne/systems/spatializer_protocol",
-    "apps/mapgyver",
     "crates/golden_core",
     "crates/golden_core/engine",
     "crates/golden_core/foundation/application",
@@ -31,11 +22,8 @@ members = [
     "crates/golden_graph",
     "crates/golden_time",
     "crates/golden_video",
-    "tools/mapgyver/native-probe",
-    "xtask",
 ]
 exclude = ["vendor/cpal-0.18.1", "vendor/spout2-sys-0.1.1", "vendor/wry-0.55.1"]
-default-members = ["apps/chataigne"]
 resolver = "2"
 
 [workspace.package]
@@ -43,19 +31,10 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Golden Geek <contact@goldengeek.com>"]
 license = "GPL-3.0-only"
-repository = "https://github.com/Golden-Geek/Chataigne2"
+repository = "https://github.com/Golden-Geek/GoldenCore"
 
 [workspace.dependencies]
-artnet_protocol = "0.4.4"
 atomic-write-file = "0.3.0"
-chataigne_alchemist = { path = "apps/chataigne/systems/alchemist" }
-chataigne_condition = { path = "apps/chataigne/systems/alchemist/condition" }
-chataigne_processor = { path = "apps/chataigne/systems/alchemist/processor" }
-chataigne_state_machine = { path = "apps/chataigne/systems/state_machine/runtime" }
-chataigne_state_machine_model = { path = "apps/chataigne/systems/state_machine/model" }
-chataigne_sound_card_protocol = { path = "apps/chataigne/systems/sound_card_protocol" }
-chataigne_spatializer_protocol = { path = "apps/chataigne/systems/spatializer_protocol" }
-delaunator = "1.1.0"
 golden_application = { path = "crates/golden_core/foundation/application" }
 golden_audio = { path = "crates/golden_audio" }
 golden_assets = { path = "crates/golden_assets" }
@@ -72,7 +51,6 @@ golden_time = { path = "crates/golden_time" }
 golden_values = { path = "crates/golden_core/foundation/values" }
 indexmap = { version = "2", features = ["serde"] }
 regex = "1"
-sacn = { package = "x39-sacn", version = "0.2.1", default-features = false, features = ["std"] }
 serde = { version = "1", features = ["derive", "rc"] }
 serde_json = "1"
 sha2 = "0.10"

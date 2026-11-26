@@ -27,6 +27,7 @@ try {
 	page.on('pageerror', (error) => errors.push(error.message));
 	await page.addInitScript(() => {
 		window.isTauri = true;
+		window.__GOLDEN_NATIVE_PRESENTATION__ = true;
 		let views = [],
 			revision = 0;
 		window.__previewMockRequests = [];

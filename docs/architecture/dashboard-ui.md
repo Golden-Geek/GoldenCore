@@ -121,13 +121,13 @@ Selection, focus, ranges, gestures and Frame preparation can retain additional s
 reported separately from ordinary detail. The current hierarchy evidence does not close arbitrary
 depth, all flow/tab framing combinations, native gestures or operation latency qualification.
 
-[Sparse viewport qualification](../progress/p11-dashboard-sparse.md) covers sparse views,
-container state retention and batched ancestry framing. [Dense-view evidence](../progress/p11-dashboard-dense.md)
+[Sparse viewport qualification](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-sparse.md) covers sparse views,
+container state retention and batched ancestry framing. [Dense-view evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-dense.md)
 covers overlapping and minimum-zoom fixtures. P11 still owns the complete hierarchical/gesture
 matrix and workflow timing before the dashboard checkpoint closes.
-The [hierarchy report](../progress/p11-dashboard-hierarchy.md) records shared-budget pressure,
+The [hierarchy report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-hierarchy.md) records shared-budget pressure,
 child discovery, focus transitions and depth-eight free framing.
-The [framing report](../progress/p11-dashboard-framing.md) covers bounded flow geometry,
+The [framing report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-framing.md) covers bounded flow geometry,
 inactive panes, native ranges, header focus and local scroll restoration.
 
 `flow-layout.ts` preserves omitted horizontal/vertical extents through CSS-unit prefix sums
@@ -165,7 +165,7 @@ publication returns a cancellation function bound to that operation, preventing 
 from cancelling a newer move by the same source. The backend still decides transaction outcomes.
 Tab previews keep keyed active controls mounted but hidden/inert; accordion previews retain their
 insertion anchor. Shared retention includes marked gesture ancestors and refreshes before a
-budget/layout DOM change. The [move-lifetime report](../progress/p11-dashboard-move-lifetimes.md)
+budget/layout DOM change. The [move-lifetime report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-move-lifetimes.md)
 records the exercised operations and remaining creation/resize/native coverage.
 
 `surface-drop.svelte.ts` owns native drag depth/preview and pending creation independently of
@@ -175,7 +175,7 @@ for both drop and move presentation. Drops also validate the referenced source U
 identity, layout or structure changes retire stale previews; disposal clears presentation and
 timers. An older rejection cannot clear a newer pending creation. Accepted backend work keeps
 its authoritative outcome even if its former view has disappeared. The
-[creation report](../progress/p11-dashboard-creation.md) distinguishes these presentation checks
+[creation report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-creation.md) distinguishes these presentation checks
 from native gesture and transaction qualification.
 
 Free layout now separates native pointer adaptation from explicit move/resize/update/finish
@@ -220,18 +220,18 @@ Concurrent barriers serialize; callbacks do not enter another barrier or open a 
 Late presentation-only events do not delay completed backend work. Undo/redo check availability
 after drainage and report failures through the UI log. Save captures the submitted history identity,
 so edits arriving while the request is pending remain unsaved. See the
-[barrier contract and evidence](../progress/p11-dashboard-barriers.md) for recovery/host boundaries.
+[barrier contract and evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-barriers.md) for recovery/host boundaries.
 
-The [free-operation report](../progress/p11-dashboard-free-gestures.md) covers active interruption;
-the [confirmed-edit report](../progress/p11-dashboard-confirmed-edits.md) covers view disposal,
+The [free-operation report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-free-gestures.md) covers active interruption;
+the [confirmed-edit report](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-confirmed-edits.md) covers view disposal,
 independent widget history and late graph publication. Generic ordered lifetimes are qualified
-below. The [composition matrix](../progress/p11-dashboard-composition.md) extends these checks to
+below. The [composition matrix](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-composition.md) extends these checks to
 containers, registered node widgets, mixed destinations and active coordinate-frame changes.
 Applied-receipt project/save/history/reparent and host-retirement ordering are qualified by the
 barrier matrix. Action timing and broader composed workflows remain open.
 These checks do not establish staged/unknown-outcome semantics or complete dashboard acceptance.
-See the [fixed contract](../progress/p11-workspace-qualification-contract.md) and the historical
-[decomposition comparison](../progress/p11-dashboard-decomposition.md).
+See the [fixed contract](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-workspace-qualification-contract.md) and the historical
+[decomposition comparison](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-decomposition.md).
 
 `WidgetLayoutEdit` is the presentation-command entrypoint for all layout controllers. The page's
 view registry dispatches to the appropriate free or ordered owner. Native adapters keep pointer
@@ -250,7 +250,7 @@ Insertion queries enumerate mounted controls/headers and resolve their authored 
 the page's retained `SurfaceItemOrder`. They do not zip sparse headers to logical children or scan
 all siblings for every pointer update. Structural/order/role changes refresh the index; value-only
 publications use immutable map deltas. An ordered surface with hidden items and no anchor cannot
-invent an insertion position. See [ordered lifetime evidence](../progress/p11-dashboard-ordered-lifetimes.md)
+invent an insertion position. See [ordered lifetime evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-dashboard-ordered-lifetimes.md)
 for the generic scope, plus the composition matrix for container and registered-widget coverage.
 Timing qualification remains required before dashboard acceptance closes; the barrier matrix covers
 normal applied receipts, with staged/unknown outcomes explicitly outside that evidence.

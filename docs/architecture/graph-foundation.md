@@ -49,8 +49,8 @@ whole-document operations. Routing retains obstacle/edge geometry, invalidates i
 search-region dependencies, and processes bounded deferred jobs. Conservative path bounds retain
 crossing wires with offscreen endpoints; overflow and pending routes remain curves. See
 [package ownership and limits](../../packages/golden-graph-ui/README.md),
-[retained-state evidence](../progress/p10-retained-presentation.md) and
-[routing qualification](../progress/p10-routing-qualification.md). Full mounted action/frame
+[retained-state evidence](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p10-retained-presentation.md) and
+[routing qualification](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p10-routing-qualification.md). Full mounted action/frame
 qualification remains distinct from those correctness and bounded-work results.
 
 ## Mutation Cost
@@ -88,7 +88,7 @@ Final removal clears the reinsertion marker, while a wholly transient insert/rem
 no-op. Graph UI exports generated Rust-owned `GraphChangeSet` and `GraphDelta` declarations;
 presentation IDs supplied by adapters are independent of the backend graph's UUID identities.
 
-Local [P09 qualification](../progress/p09-graph-qualification.md) covers consumer selection/history
+Local [P09 qualification](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p09-graph-qualification.md) covers consumer selection/history
 and fixed-delta work at 1k/10k/50k/100k nodes with an identical pre-P09 comparison harness and raw
 samples. These timings cover generic transaction work, with full-document preparation/disposal,
 application semantic validation and rendering excluded. Mounted-canvas and whole-product

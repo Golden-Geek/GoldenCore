@@ -5,7 +5,7 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 #[test]
-#[ignore = "requires an independent Windows NDI sender from apps/mapgyver/tests/native/ndi_sender.py"]
+#[ignore = "requires an independent Windows NDI sender from tests/fixtures/ndi_sender.py"]
 fn external_moving_video_and_cpu_storage_retirement() {
     let source_name = std::env::var("GOLDEN_NDI_TEST_SOURCE").expect("exact sender name from the fixture ready file");
     let source = find_source(&source_name);

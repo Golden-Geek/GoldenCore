@@ -14,6 +14,7 @@ export async function verifyQualification(browser, baseUrl) {
 		await context.addInitScript(
 			({ reportEvent }) => {
 				window.isTauri = true;
+				window.__GOLDEN_NATIVE_PRESENTATION__ = true;
 				const callbacks = new Map();
 				const listeners = new Map();
 				let callbackId = 0;

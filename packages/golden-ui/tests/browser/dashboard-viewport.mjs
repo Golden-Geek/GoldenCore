@@ -140,10 +140,6 @@ const sources = [
 	resolve(repository, 'packages/golden-ui/store/session/project-graph-transition.svelte.ts'),
 	resolve(repository, 'packages/golden-ui/store/session/tests/edit-barrier.test.ts'),
 	resolve(repository, 'packages/golden-ui/store/session/tests/intent-barrier.test.ts'),
-	resolve(repository, 'apps/chataigne/ui/src/lib/tests/workbenchProjectTransition.test.ts'),
-	resolve(repository, 'apps/chataigne/ui/src/lib/tests/workbenchSelection.test.ts'),
-	resolve(repository, 'apps/chataigne/ui/src/lib/tests/workbenchStructuralChildren.test.ts'),
-	resolve(repository, 'apps/chataigne/ui/src/lib/tests/fixtures/workbench-graph.ts'),
 	fileURLToPath(import.meta.url)
 ];
 const fingerprints = () =>

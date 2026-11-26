@@ -52,5 +52,5 @@ scanning the catalog for absent declaration fields. Qualification fixtures use p
 `golden_ui/testing/session` and `golden_ui/testing/collections` helpers; production apps do not import
 those test entries. Golden keeps no dependency on app-owned fixtures or Formula policy.
 
-The [P11 tree closure](../progress/p11-tree-closure.md) records shared, app-consumer and constrained
+The [P11 tree closure](https://github.com/Golden-Geek/Chataigne2/blob/3b7a4bbcbfc211903a52d43f31d3fe5e17e73ac3/docs/progress/p11-tree-closure.md) records shared, app-consumer and constrained
 picker qualification. Native physical-input usability belongs to P17.
