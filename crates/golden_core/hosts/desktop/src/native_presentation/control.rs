@@ -40,12 +40,15 @@ pub(super) struct ControlState {
 struct ControlEndpoint {
     window: String,
     current: Arc<AtomicBool>,
+    #[cfg(any(target_os = "windows", test))]
     handler: Arc<ControlHandler>,
     pending: Arc<AtomicUsize>,
 }
 
 pub(super) struct ControlTicket {
+    #[cfg(any(target_os = "windows", test))]
     current: Arc<AtomicBool>,
+    #[cfg(any(target_os = "windows", test))]
     handler: Arc<ControlHandler>,
     _permit: ControlPermit,
 }
@@ -60,10 +63,11 @@ impl Drop for ControlPermit {
 impl ControlState {
     pub fn attach(&mut self, window: &str, handler: Option<Arc<ControlHandler>>) {
         self.close();
-        self.endpoint = handler.map(|handler| ControlEndpoint {
+        self.endpoint = handler.map(|_handler| ControlEndpoint {
             window: window.into(),
             current: Arc::new(AtomicBool::new(true)),
-            handler,
+            #[cfg(any(target_os = "windows", test))]
+            handler: _handler,
             pending: Arc::new(AtomicUsize::new(0)),
         });
     }
@@ -93,13 +97,16 @@ impl ControlState {
             })
             .map_err(|_| "native presentation control capacity is exhausted")?;
         Ok(ControlTicket {
+            #[cfg(any(target_os = "windows", test))]
             current: endpoint.current.clone(),
+            #[cfg(any(target_os = "windows", test))]
             handler: endpoint.handler.clone(),
             _permit: ControlPermit(endpoint.pending.clone()),
         })
     }
 }
 
+#[cfg(any(target_os = "windows", test))]
 impl ControlTicket {
     pub fn dispatch(&self, request: &str, viewport: NativePresentationViewport) -> Result<String, String> {
         if !self.current.load(Ordering::Acquire) {
@@ -201,6 +208,7 @@ async fn invoke_scoped<R: Runtime>(
     Err("native presentation metrics are unavailable on this platform".into())
 }
 
+#[cfg(any(target_os = "windows", test))]
 fn from_metrics(
     client: [i32; 2],
     bounds: [i32; 4],

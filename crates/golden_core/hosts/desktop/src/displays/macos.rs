@@ -39,7 +39,7 @@ pub fn macos_desktop_displays<R: Runtime>(app: &AppHandle<R>) -> io::Result<Vec<
                 let millihertz = (mode.refresh_rate() * 1000.0).round();
                 (1.0..=f64::from(u32::MAX))
                     .contains(&millihertz)
-                    .then(|| (millihertz as u32, 1000))
+                    .then_some((millihertz as u32, 1000))
             });
             displays.push(NativeDisplay {
                 id,

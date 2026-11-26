@@ -67,7 +67,11 @@ fn null_backend_soak_advances_signal_and_completes_planned_recovery() {
 
     let report = run_managed_device_soak(Box::new(NullBackend), options, &path).unwrap();
 
-    assert!(report.passed, "{:#?}", report.failures);
+    assert!(
+        report.passed,
+        "qualification failures: {:#?}\nruntime warnings: {:#?}",
+        report.failures, report.runtime_warning_messages
+    );
     assert!(report.runtime.rendered_frames > 0);
     assert!(report.output_global_max_rms > 0.0);
     assert_eq!(report.deadline_miss_acceptance, DeadlineMissAcceptance::RecordOnly);
