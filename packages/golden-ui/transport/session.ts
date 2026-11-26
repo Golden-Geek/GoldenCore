@@ -1,7 +1,7 @@
 import type { UiSessionRequest } from '../generated/rust_protocol/UiSessionRequest';
 import type { UiSessionResponse } from '../generated/rust_protocol/UiSessionResponse';
 import { UI_PROTOCOL_VERSION } from '../generated/rust_protocol/protocol-version.ts';
-import { discoverUiApplication } from '../host/runtime-endpoints';
+import { discoverUiApplication } from '../host/runtime-endpoints.ts';
 
 export interface UiSessionProvider {
 	credentials(refresh?: boolean): Promise<UiSessionResponse>;

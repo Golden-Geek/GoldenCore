@@ -1,7 +1,7 @@
 import type { UiApplicationInfoDto } from '../generated/rust_protocol/UiApplicationInfoDto';
 import type { UiDiscoveryDto } from '../generated/rust_protocol/UiDiscoveryDto';
-import { UI_PROTOCOL_VERSION } from '../generated/rust_protocol/protocol-version';
-import { validateApplicationInfo } from './application';
+import { UI_PROTOCOL_VERSION } from '../generated/rust_protocol/protocol-version.ts';
+import { validateApplicationInfo } from './application.ts';
 
 export interface RuntimeLocation {
 	readonly origin: string;
